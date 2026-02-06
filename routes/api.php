@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\PostController;
 use App\Http\Controllers\Api\CommentController;
 use App\Http\Controllers\Api\LikeController;
 use App\Http\Controllers\Api\ConnectionController;
+use App\Http\Controllers\Api\FeedController;
 
 Route::prefix('/v1')->group(function () {
     Route::post('/login', [AuthController::class, 'login']);
@@ -30,7 +31,9 @@ Route::prefix('/v1')->group(function () {
         Route::get('/connections/friends', [ConnectionController::class, 'friends']);
         
         Route::apiResource('/posts', PostController::class);
-        Route::apiResource('/comments', CommentController::class)->only(['store', 'destroy']);;
-        Route::apiResource('/likes', LikeController::class)->only(['store', 'destroy']);;
+        Route::apiResource('/comments', CommentController::class)->only(['store', 'destroy']);
+        Route::apiResource('/likes', LikeController::class)->only(['store', 'destroy']);
+
+        Route::get('/feeds', [FeedController::class, 'index']);
     });
 });
