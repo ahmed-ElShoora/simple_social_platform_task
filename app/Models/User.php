@@ -29,6 +29,23 @@ class User extends Authenticatable
         return $this->hasOne(Profile::class);
     }
 
+    public function connections()
+    {
+        return $this->hasMany(Connection::class, 'user_id_low')
+            ->orWhere('user_id_high', $this->id);
+    }
+
+    public function connectionsAsLow()
+    {
+        return $this->hasMany(Connection::class, 'user_id_high');
+    }
+
+    public function connectionsAsHigh()
+    {
+        return $this->hasMany(Connection::class, 'user_id_low');
+    }
+
+
     public function posts()
     {
         return $this->hasMany(Post::class);

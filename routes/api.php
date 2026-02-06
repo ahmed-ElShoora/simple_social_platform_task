@@ -6,7 +6,7 @@ use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\PostController;
 use App\Http\Controllers\Api\CommentController;
 use App\Http\Controllers\Api\LikeController;
-use App\Http\Middleware\ApiKeyMiddleware;
+use App\Http\Controllers\Api\ConnectionController;
 
 Route::prefix('/v1')->group(function () {
     Route::post('/login', [AuthController::class, 'login']);
@@ -22,6 +22,13 @@ Route::prefix('/v1')->group(function () {
         Route::post('/profiles/search', [ProfileController::class, 'search']);
         Route::get('/profiles/{id}', [ProfileController::class, 'show']);
         Route::post('/profiles/{id}', [ProfileController::class, 'update']);
+
+        Route::post('/connections/send', [ConnectionController::class, 'send']);
+        Route::post('/connections/{id}/accept', [ConnectionController::class, 'accept']);
+        Route::post('/connections/{id}/reject', [ConnectionController::class, 'reject']);
+        Route::get('/connections/incoming', [ConnectionController::class, 'incoming']);
+        Route::get('/connections/friends', [ConnectionController::class, 'friends']);
+
         
         
         Route::apiResource('/posts', PostController::class);

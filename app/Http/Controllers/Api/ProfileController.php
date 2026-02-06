@@ -9,20 +9,15 @@ use App\Http\Requests\UpdateProfileRequest;
 use Illuminate\Support\Facades\Storage;
 use App\Traits\ApiResponse;
 use App\Services\UpdateProfileService;
+use App\Services\ProfilesService;
 
 class ProfileController extends Controller
 {
     use ApiResponse;
-    public function search(Request $request)
+    public function search(Request $request, ProfilesService $profilesService)
     {
         $query = $request->name;
-        if(!$query){
-            $users_profiles = User::with('profile')->get();
-        }else{
-            $users_profiles = User::with('profile')
-            ->where('name', 'LIKE', "%{$query}%")
-            ->get();
-        }
+        $users_profiles = $profilesService->getProfileWithOutConnections($request->user(), $query);
 
         return $this->successResponse($users_profiles, 'Search results retrieved successfully');
     }
