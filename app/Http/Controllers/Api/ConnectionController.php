@@ -5,19 +5,18 @@ use App\Http\Controllers\Controller;
 use App\Models\Connection;
 use Illuminate\Http\Request;
 use App\Traits\ApiResponse;
+use App\Http\Requests\SendConnectionRequest;
 
 class ConnectionController extends Controller
 {
     use ApiResponse;
 
-    public function send(Request $request)
+    public function send(SendConnectionRequest $request)
     {
-        $request->validate([
-            'user_id' => 'required|exists:users,id',
-        ]);
+        $validatedData = $request->validated();
 
         $me = auth()->id();
-        $other = $request->user_id;
+        $other = $validatedData['user_id'];
 
         if ($me === $other) {
             return $this->errorResponse('لا يمكنك إرسال طلب صداقة لنفسك', null, 422);

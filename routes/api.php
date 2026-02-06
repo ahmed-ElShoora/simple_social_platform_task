@@ -28,8 +28,6 @@ Route::prefix('/v1')->group(function () {
         Route::post('/connections/{id}/reject', [ConnectionController::class, 'reject']);
         Route::get('/connections/incoming', [ConnectionController::class, 'incoming']);
         Route::get('/connections/friends', [ConnectionController::class, 'friends']);
-
-        
         
         Route::apiResource('/posts', PostController::class);
         Route::apiResource('/comments', CommentController::class)->only(['store', 'destroy']);;

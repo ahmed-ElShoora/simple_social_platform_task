@@ -7,7 +7,7 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use App\Traits\ApiResponse;
 
-class UpdateProfileRequest extends FormRequest
+class CreateLikeRequest extends FormRequest
 {
     use ApiResponse;
     /**
@@ -26,9 +26,7 @@ class UpdateProfileRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['sometimes', 'nullable', 'min:2', 'max:255'],
-            'bio' => ['sometimes', 'nullable', 'string', 'max:2000'],
-            'profile_picture' => ['sometimes', 'nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
+            'post_id' => 'required|exists:posts,id',
         ];
     }
 
