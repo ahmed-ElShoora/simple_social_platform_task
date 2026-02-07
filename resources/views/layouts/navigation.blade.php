@@ -15,6 +15,18 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+                    <x-nav-link :href="url('/posts')" :active="request()->routeIs('ui.posts.index')">
+                        {{ __('Posts') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('ui.peoples.index')" :active="request()->routeIs('ui.peoples.index')">
+                        {{ __('Peoples') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('ui.friends.index')" :active="request()->routeIs('ui.friends.index')">
+                        {{ __('Friends') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('ui.notifications.index')" :active="request()->routeIs('ui.notifications.index')">
+                        {{ __('Notifications') }}
+                    </x-nav-link>
                 </div>
             </div>
 

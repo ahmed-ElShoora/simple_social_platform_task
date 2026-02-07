@@ -9,7 +9,7 @@ use App\Http\Controllers\Api\LikeController;
 use App\Http\Controllers\Api\ConnectionController;
 use App\Http\Controllers\Api\FeedController;
 
-Route::prefix('/v1')->group(function () {
+Route::prefix('/v1')->name('api.v1.')->group(function () {
     Route::post('/login', [AuthController::class, 'login']);
     Route::post('/register', [AuthController::class, 'register']);
     Route::post('/reset-password', [AuthController::class, 'resetPassword']);

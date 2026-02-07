@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Storage;
 
 class ProfilesService
 {
-    public function getProfileWithOutConnections(User $user, string $query = ''): User
+    public function getProfileWithOutConnections($user, string $query = '')
     {
         $me = $user->id;
         $users_profiles = User::with('profile')
@@ -21,11 +21,9 @@ class ProfilesService
         ->whereDoesntHave('connectionsAsHigh', function ($q) use ($me) {
             $q->where('user_id_high', $me);
         });
-        if(empty($query)) {
-            $users_profiles->get();
-        }else{
-            $users_profiles->where('name', 'LIKE', "%{$query}%")->get();
+        if($query !== '') {
+            $users_profiles = $users_profiles->where('name', 'LIKE', "%{$query}%");
         }
-        return $users_profiles;
+        return $users_profiles->get();
     }
 }
