@@ -5,7 +5,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\web\DashboardController;
 use App\Http\Controllers\web\PeopleController;
 use App\Http\Controllers\web\FriendController;
-use App\Http\Controllers\web\NotificationController;
 use App\Http\Controllers\web\PostController;
 
 Route::get('/', function () {
@@ -30,10 +29,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/people/{user}/connect', [PeopleController::class, 'connect'])->name('ui.peoples.connect');
 
     Route::get('/friends', [FriendController::class, 'index'])->name('ui.friends.index');
-    Route::post('/friends/{user}/accept', [FriendController::class, 'accept'])->name('ui.friends.accept');
-    Route::post('/friends/{user}/reject', [FriendController::class, 'reject'])->name('ui.friends.reject');
-
-    Route::get('/notifications', [NotificationController::class, 'index'])->name('ui.notifications.index');
+    Route::get('/friends/{user}/accept', [FriendController::class, 'accept'])->name('ui.friends.accept');
+    Route::get('/friends/{user}/reject', [FriendController::class, 'reject'])->name('ui.friends.reject');
 });
 
 require __DIR__.'/auth.php';

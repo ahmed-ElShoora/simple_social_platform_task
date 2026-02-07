@@ -29,7 +29,7 @@ class FeedController extends Controller
             ->values()
             ->all();
 
-            $posts = Post::query()
+        $posts = Post::query()
             ->whereIn('user_id', $friendIds)
             ->latest() 
             ->with(['user.profile', 'comments.user.profile'])

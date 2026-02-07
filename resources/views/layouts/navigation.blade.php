@@ -24,9 +24,6 @@
                     <x-nav-link :href="route('ui.friends.index')" :active="request()->routeIs('ui.friends.index')">
                         {{ __('Friends') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('ui.notifications.index')" :active="request()->routeIs('ui.notifications.index')">
-                        {{ __('Notifications') }}
-                    </x-nav-link>
                 </div>
             </div>
 

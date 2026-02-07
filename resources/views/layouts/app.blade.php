@@ -57,5 +57,58 @@
                 }, 5000); 
             </script>
         @endif
+        @if(auth()->check())
+            <script>
+                document.addEventListener('DOMContentLoaded', () => {
+                    const userId = {{ auth()->id() }};
+                    window.Echo.private(`users.${userId}`)
+                    .listen('.like', (e) => {
+                        console.log(e.payload);
+                        showNotification(e.payload,'like');
+                    });
+                });
+                document.addEventListener('DOMContentLoaded', () => {
+                    const userId = {{ auth()->id() }};
+                    window.Echo.private(`users.${userId}`)
+                    .listen('.comment', (e) => {
+                        console.log(e.payload);
+                        showNotification(e.payload,'comment');
+                    });
+                });
+                document.addEventListener('DOMContentLoaded', () => {
+                    const userId = {{ auth()->id() }};
+                    window.Echo.private(`users.${userId}`)
+                    .listen('.friend', (e) => {
+                        console.log(e.payload);
+                        showNotification(e.payload,'friend');
+                    });
+                });
+                function showNotification(payload,from) {
+                    const container = document.createElement('div');
+                    container.className = 'alert alert-info shadow';
+                    container.style.position = 'absolute';
+                    container.style.top = '10px';
+                    container.style.right = '10px';
+                    container.style.zIndex = 9999;
+                    container.style.minWidth = '25%';
+                    if(from === 'like'){
+                        container.innerHTML = payload.actor_name + " liked your post";
+                    }else if(from === 'comment'){
+                        container.innerHTML = payload.actor_name + " commented on your post: " + payload.comment;
+                    }else if(from === 'friend'){
+                        container.innerHTML = payload.actor_name + " sent you a friend request";
+                    }
+
+                    document.body.appendChild(container);
+
+                    setTimeout(() => {
+                        container.classList.add('fade');
+                        container.style.opacity = '0';
+                        setTimeout(() => container.remove(), 500);
+                    }, 5000);
+                }
+            </script>
+        @endif
+
     </body>
 </html>
